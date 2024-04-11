@@ -1,10 +1,10 @@
 package com.curd.operations.entities;
 
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -22,6 +22,7 @@ public class Student {
     private String dateOfJoin;
     private String lastLoginDate;
     private boolean enabled;
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "student")
+    @JsonManagedReference
+    @OneToOne(mappedBy = "student")
     private Parent parents;
 }

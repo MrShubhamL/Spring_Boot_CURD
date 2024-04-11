@@ -14,7 +14,7 @@ import java.util.List;
 public interface ParentRepository extends JpaRepository<Parent, Long> {
     boolean existsByEmail(String email);
     boolean existsByContact(String email);
-    List<Parent> getAllByEnabled(boolean b);
     Parent getParentById(Long id);
+    Parent getParentByStudentId(Long id);
 
 }
