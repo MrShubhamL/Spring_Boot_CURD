@@ -1,11 +1,9 @@
 package com.curd.operations.entities;
 
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
-import java.util.List;
+
 
 @Data
 @Entity
@@ -23,6 +21,6 @@ public class Student {
     private String lastLoginDate;
     private boolean enabled;
     @JsonManagedReference
-    @OneToOne(mappedBy = "student")
+    @OneToOne(cascade = CascadeType.REMOVE, mappedBy = "student", fetch = FetchType.LAZY)
     private Parent parents;
 }

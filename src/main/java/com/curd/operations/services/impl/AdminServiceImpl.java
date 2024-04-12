@@ -1,7 +1,9 @@
 package com.curd.operations.services.impl;
 
+import com.curd.operations.entities.Admin;
 import com.curd.operations.entities.Parent;
 import com.curd.operations.entities.Student;
+import com.curd.operations.repositories.AdminRepository;
 import com.curd.operations.repositories.ParentRepository;
 import com.curd.operations.repositories.StudentRepository;
 import com.curd.operations.services.AdminService;
@@ -17,6 +19,8 @@ public class AdminServiceImpl implements AdminService {
     StudentRepository studentRepository;
     @Autowired
     ParentRepository parentRepository;
+    @Autowired
+    AdminRepository adminRepository;
     @Override
     public Student setStudentEnable(Long id) {
         Student studentById = studentRepository.getStudentById(id);
@@ -34,5 +38,15 @@ public class AdminServiceImpl implements AdminService {
         st.setEnabled(true);
         st.setParents(parentByStudentId);
         return studentRepository.save(st);
+    }
+
+    @Override
+    public Admin createAdmin(Admin admin) {
+        return adminRepository.save(admin);
+    }
+
+    @Override
+    public Admin getAdminByEmail(String email) {
+        return adminRepository.getAdminByEmail(email);
     }
 }

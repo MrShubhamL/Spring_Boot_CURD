@@ -1,10 +1,12 @@
 package com.curd.operations.controllers;
 
+import com.curd.operations.entities.Admin;
 import com.curd.operations.entities.Parent;
 import com.curd.operations.entities.Student;
 import com.curd.operations.services.impl.AdminServiceImpl;
 import com.curd.operations.services.impl.ParentServiceImpl;
 import com.curd.operations.services.impl.StudentServiceImpl;
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +24,22 @@ public class AdminController {
     ParentServiceImpl parentService;
     @Autowired
     AdminServiceImpl adminService;
+
+    @PostConstruct
+    public void createAdmin(){
+        Admin admin = new Admin();
+        admin.setName("Admin");
+        admin.setContact("7769048180");
+        admin.setEmail("admin123@gmail.com");
+        admin.setPassword("admin123");
+        Admin adminByEmail = adminService.getAdminByEmail(admin.getEmail());
+        if(adminByEmail==null){
+            adminService.createAdmin(admin);
+            System.out.println("Admin Created.");
+        }
+    }
+
+
     @DeleteMapping("/delete_student/{id}")
     private ResponseEntity<Object> deleteStudentById(@PathVariable Long id) {
         Integer b = studentService.deleteStudent(id);
